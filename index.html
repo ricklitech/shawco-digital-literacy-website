@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Digital Story — SHAWCO Digital Literacy Program</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --blue: #1a73e8;
+    --green: #00c896;
+    --yellow: #f9c846;
+    --pink: #e91e8c;
+    --purple: #7c3aed;
+    --bg: #f0f4ff;
+  }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(135deg, #1a73e8, #7c3aed);
+    padding: 2.5rem 2rem;
+    text-align: center;
+    color: white;
+  }
+
+  .header-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 100px;
+    padding: 8px 20px;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 1.2rem;
+    letter-spacing: 1px;
+  }
+
+  header h1 {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.5px;
+  }
+
+  header p {
+    font-size: 16px;
+    opacity: 0.85;
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* PROGRESS */
+  .progress-bar-wrap {
+    background: white;
+    padding: 1.2rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+
+  .progress-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #555;
+    white-space: nowrap;
+  }
+
+  .progress-bar {
+    flex: 1;
+    height: 10px;
+    background: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(to right, var(--blue), var(--purple));
+    border-radius: 10px;
+    transition: width 0.4s ease;
+  }
+
+  .progress-pct {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--blue);
+    min-width: 36px;
+    text-align: right;
+  }
+
+  /* MAIN */
+  main {
+    max-width: 760px;
+    margin: 2.5rem auto;
+    padding: 0 1.5rem 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  /* CARDS */
+  .card {
+    background: white;
+    border-radius: 24px;
+    padding: 1.75rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    border-left: 5px solid transparent;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+  }
+
+  .card.blue  { border-left-color: var(--blue); }
+  .card.green { border-left-color: var(--green); }
+  .card.yellow{ border-left-color: var(--yellow); }
+  .card.pink  { border-left-color: var(--pink); }
+  .card.purple{ border-left-color: var(--purple); }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 1rem;
+  }
+
+  .card-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+
+  .card.blue   .card-icon { background: #e8f0fe; }
+  .card.green  .card-icon { background: #e6faf4; }
+  .card.yellow .card-icon { background: #fff9e6; }
+  .card.pink   .card-icon { background: #fce4f3; }
+  .card.purple .card-icon { background: #f3effe; }
+
+  .card-title {
+    font-size: 17px;
+    font-weight: 800;
+    color: #1a1a1a;
+    line-height: 1.2;
+  }
+
+  .card-subtitle {
+    font-size: 13px;
+    color: #888;
+    font-weight: 600;
+    margin-top: 2px;
+  }
+
+  /* FORM ELEMENTS */
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    color: #555;
+    margin-bottom: 6px;
+    margin-top: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  label:first-of-type { margin-top: 0; }
+
+  input[type="text"],
+  textarea,
+  select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e8e8e8;
+    border-radius: 14px;
+    font-size: 15px;
+    font-family: 'Nunito', sans-serif;
+    color: #1a1a1a;
+    background: #fafafa;
+    transition: border-color 0.2s, background 0.2s;
+    resize: none;
+  }
+
+  input[type="text"]:focus,
+  textarea:focus,
+  select:focus {
+    outline: none;
+    border-color: var(--blue);
+    background: white;
+  }
+
+  textarea { min-height: 110px; line-height: 1.6; }
+
+  /* SKILLS CHECKBOXES */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 10px;
+    margin-top: 0.5rem;
+  }
+
+  .skill-check {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f5f5f5;
+    border: 2px solid #eee;
+    border-radius: 12px;
+    padding: 10px 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 14px;
+    font-weight: 600;
+    color: #444;
+    user-select: none;
+  }
+
+  .skill-check:hover {
+    border-color: #b0c8f8;
+    background: #f0f4ff;
+  }
+
+  .skill-check.checked {
+    background: #e8f0fe;
+    border-color: var(--blue);
+    color: var(--blue);
+  }
+
+  .skill-dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    flex-shrink: 0;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 800;
+    color: transparent;
+  }
+
+  .skill-check.checked .skill-dot {
+    background: var(--blue);
+    border-color: var(--blue);
+    color: white;
+  }
+
+  /* RATING STARS */
+  .star-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 0.5rem;
+  }
+
+  .star {
+    font-size: 28px;
+    cursor: pointer;
+    transition: transform 0.15s;
+    filter: grayscale(1) opacity(0.4);
+  }
+
+  .star:hover, .star.active {
+    filter: none;
+    transform: scale(1.15);
+  }
+
+  /* SUBMIT */
+  .submit-btn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, var(--blue), var(--purple));
+    color: white;
+    border: none;
+    border-radius: 16px;
+    font-size: 16px;
+    font-weight: 800;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-top: 1rem;
+  }
+
+  .submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(26,115,232,0.35);
+  }
+
+  /* SUCCESS */
+  .success-screen {
+    display: none;
+    text-align: center;
+    padding: 3rem 2rem;
+    background: white;
+    border-radius: 24px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  }
+
+  .success-screen.show { display: block; }
+
+  .success-icon {
+    font-size: 64px;
+    margin-bottom: 1rem;
+    animation: pop 0.5s ease;
+  }
+
+  @keyframes pop {
+    0%   { transform: scale(0); }
+    70%  { transform: scale(1.2); }
+    100% { transform: scale(1); }
+  }
+
+  .success-screen h2 {
+    font-size: 24px;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin-bottom: 0.5rem;
+  }
+
+  .success-screen p {
+    color: #666;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  /* SAVED ENTRIES */
+  .entries-section {
+    margin-top: 2rem;
+  }
+
+  .entries-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .entry-card {
+    background: white;
+    border-radius: 18px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    border-left: 4px solid var(--green);
+  }
+
+  .entry-name {
+    font-weight: 800;
+    font-size: 16px;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+  }
+
+  .entry-meta {
+    font-size: 13px;
+    color: #888;
+    font-weight: 600;
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 13px;
+    color: #aaa;
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-logo">🌍 SHAWCO — UCT Digital Literacy Program</div>
+  <h1>My Digital Story</h1>
+  <p>Share your learnings, experiences and dreams for the future. Your story matters!</p>
+</header>
+
+<div class="progress-bar-wrap">
+  <span class="progress-label">Your progress</span>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  <span class="progress-pct" id="progressPct">0%</span>
+</div>
+
+<main id="formArea">
+
+  <!-- CARD 1: About Me -->
+  <div class="card blue">
+    <div class="card-header">
+      <div class="card-icon">👤</div>
+      <div>
+        <div class="card-title">About Me</div>
+        <div class="card-subtitle">Tell us who you are</div>
+      </div>
+    </div>
+    <label>Full Name</label>
+    <input type="text" id="name" placeholder="e.g. Thabo Nkosi" oninput="updateProgress()">
+    <label>Age</label>
+    <input type="text" id="age" placeholder="e.g. 16" oninput="updateProgress()">
+    <label>School</label>
+    <input type="text" id="school" placeholder="e.g. Kensington Primary School" oninput="updateProgress()">
+  </div>
+
+  <!-- CARD 2: Learnings -->
+  <div class="card green">
+    <div class="card-header">
+      <div class="card-icon">💡</div>
+      <div>
+        <div class="card-title">What I Learned</div>
+        <div class="card-subtitle">New skills from the program</div>
+      </div>
+    </div>
+    <label>What was the most important thing you learned?</label>
+    <textarea id="learning" placeholder="e.g. I learned how to build a webpage using HTML and CSS. I never thought I could write code before this program..." oninput="updateProgress()"></textarea>
+    <label>Which skills did you practice? (select all that apply)</label>
+    <div class="skills-grid" id="skillsGrid">
+      <div class="skill-check" onclick="toggleSkill(this)"><div class="skill-dot"></div>HTML</div>
+      <div class="skill-check" onclick="toggleSkill(this)"><div class="skill-dot"></div>CSS</div>
+      <div class="skill-check" onclick="toggleSkill(this)"><div class="skill-dot"></div>Typing</div>
+      <div class="skill-check" onclick="toggleSkill(this)"><div class="skill-dot"></div>Internet Safety</div>
+      <div class="skill-check" onclick="toggleSkill(this)"><div class="skill-dot"></div>CV Writing</div>
+      <div class="skill-check" onclick="toggleSkill(this)"><div class="skill-dot"></div>Email</div>
+      <div class="skill-check" onclick="toggleSkill(this)"><div class="skill-dot"></div>Problem Solving</div>
+      <div class="skill-check" onclick="toggleSkill(this)"><div class="skill-dot"></div>Teamwork</div>
+    </div>
+  </div>
+
+  <!-- CARD 3: Experience -->
+  <div class="card yellow">
+    <div class="card-header">
+      <div class="card-icon">⭐</div>
+      <div>
+        <div class="card-title">My Experience</div>
+        <div class="card-subtitle">How was this program for you?</div>
+      </div>
+    </div>
+    <label>Describe your experience in the program</label>
+    <textarea id="experience" placeholder="e.g. At first I was nervous about computers, but the teachers were very patient. My favourite session was when we built our first webpage..." oninput="updateProgress()"></textarea>
+    <label>Rate your overall experience</label>
+    <div class="star-row" id="starRow">
+      <span class="star" onclick="rateStar(1)">⭐</span>
+      <span class="star" onclick="rateStar(2)">⭐</span>
+      <span class="star" onclick="rateStar(3)">⭐</span>
+      <span class="star" onclick="rateStar(4)">⭐</span>
+      <span class="star" onclick="rateStar(5)">⭐</span>
+    </div>
+  </div>
+
+  <!-- CARD 4: Dreams -->
+  <div class="card pink">
+    <div class="card-header">
+      <div class="card-icon">🚀</div>
+      <div>
+        <div class="card-title">My Dreams & Goals</div>
+        <div class="card-subtitle">Your future starts here</div>
+      </div>
+    </div>
+    <label>What do you want to be when you grow up?</label>
+    <input type="text" id="dream_job" placeholder="e.g. Software Engineer, Teacher, Doctor..." oninput="updateProgress()">
+    <label>How will technology help you reach your goals?</label>
+    <textarea id="dream_text" placeholder="e.g. I want to use technology to help my community by..." oninput="updateProgress()"></textarea>
+  </div>
+
+  <!-- CARD 5: Message -->
+  <div class="card purple">
+    <div class="card-header">
+      <div class="card-icon">💬</div>
+      <div>
+        <div class="card-title">My Message</div>
+        <div class="card-subtitle">To future students of this program</div>
+      </div>
+    </div>
+    <label>What would you say to a student joining this program next year?</label>
+    <textarea id="message" placeholder="e.g. Don't be afraid of computers! Just try and you will surprise yourself..." oninput="updateProgress()"></textarea>
+  </div>
+
+  <button class="submit-btn" onclick="submitForm()">✨ Save My Story</button>
+
+</main>
+
+<!-- SUCCESS -->
+<div class="success-screen" id="successScreen">
+  <div class="success-icon">🎉</div>
+  <h2>Your story has been saved!</h2>
+  <p>Thank you for sharing your journey. Your words will inspire others in this program.<br><br>Keep learning, keep growing. The future is yours! 🌍</p>
+  <button class="submit-btn" onclick="resetForm()" style="max-width:300px;margin:2rem auto 0;">Add Another Story</button>
+</div>
+
+<div class="entries-section" id="entriesSection" style="max-width:760px;margin:0 auto;padding:0 1.5rem 4rem;">
+</div>
+
+<footer>
+  SHAWCO Digital Literacy Program · University of Cape Town · Cape Town, South Africa
+</footer>
+
+<script>
+  let rating = 0;
+  const entries = JSON.parse(localStorage.getItem('shawco_entries') || '[]');
+
+  function updateProgress() {
+    const fields = ['name','age','school','learning','experience','dream_job','dream_text','message'];
+    const filled = fields.filter(id => document.getElementById(id).value.trim() !== '').length;
+    const pct = Math.round((filled / fields.length) * 100);
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressPct').textContent = pct + '%';
+  }
+
+  function toggleSkill(el) {
+    el.classList.toggle('checked');
+    const dot = el.querySelector('.skill-dot');
+    if (el.classList.contains('checked')) {
+      dot.textContent = '✓';
+    } else {
+      dot.textContent = '';
+    }
+  }
+
+  function rateStar(n) {
+    rating = n;
+    document.querySelectorAll('.star').forEach((s,i) => {
+      s.classList.toggle('active', i < n);
+    });
+  }
+
+  function submitForm() {
+    const name = document.getElementById('name').value.trim();
+    if (!name) { alert('Please enter your name first!'); return; }
+
+    const skills = [...document.querySelectorAll('.skill-check.checked')].map(el => el.textContent.replace('✓','').trim());
+
+    const entry = {
+      name, age: document.getElementById('age').value,
+      school: document.getElementById('school').value,
+      learning: document.getElementById('learning').value,
+      experience: document.getElementById('experience').value,
+      dream_job: document.getElementById('dream_job').value,
+      dream_text: document.getElementById('dream_text').value,
+      message: document.getElementById('message').value,
+      skills, rating,
+      date: new Date().toLocaleDateString('en-ZA')
+    };
+
+    entries.unshift(entry);
+    localStorage.setItem('shawco_entries', JSON.stringify(entries));
+
+    document.getElementById('formArea').style.display = 'none';
+    document.getElementById('successScreen').classList.add('show');
+    renderEntries();
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+
+  function resetForm() {
+    document.getElementById('formArea').style.display = 'flex';
+    document.getElementById('successScreen').classList.remove('show');
+    ['name','age','school','learning','experience','dream_job','dream_text','message'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+    document.querySelectorAll('.skill-check').forEach(el => {
+      el.classList.remove('checked');
+      el.querySelector('.skill-dot').textContent = '';
+    });
+    document.querySelectorAll('.star').forEach(el => el.classList.remove('active'));
+    rating = 0;
+    updateProgress();
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+
+  function renderEntries() {
+    const sec = document.getElementById('entriesSection');
+    if (entries.length === 0) { sec.innerHTML = ''; return; }
+    sec.innerHTML = `<div class="entries-title">📚 Stories Shared (${entries.length})</div>` +
+      entries.map(e => `
+        <div class="entry-card">
+          <div class="entry-name">${e.name} ${e.rating ? '⭐'.repeat(e.rating) : ''}</div>
+          <div class="entry-meta">${e.school || ''} ${e.age ? '· Age ' + e.age : ''} · ${e.date}</div>
+          ${e.dream_job ? `<div style="margin-top:8px;font-size:14px;color:#555;">🚀 Wants to be: <strong>${e.dream_job}</strong></div>` : ''}
+          ${e.skills && e.skills.length ? `<div style="margin-top:6px;font-size:13px;color:#888;">Skills: ${e.skills.join(', ')}</div>` : ''}
+        </div>`).join('');
+  }
+
+  renderEntries();
+</script>
+</body>
+</html>
